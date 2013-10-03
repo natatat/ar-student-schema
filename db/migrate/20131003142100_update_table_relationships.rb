@@ -1,22 +1,16 @@
 require_relative '../config'
 
-class CreateStudents < ActiveRecord::Migration
+class UpdateStudents < ActiveRecord::Migration
   def change
-    create_table :students do |t|
-      t.string :first_name
-      t.string :last_name
-      t.string :gender
-      t.date :birthday
-      t.string :email
-      t.string :phone
-      t.integer :teacher_id
+    change_table :students do |t|
+      t.remove :teacher_id
+      
 
-      t.timestamps
     end
   end
 end
 
-class CreateTeachers < ActiveRecord::Migration
+class UpdateTeachers < ActiveRecord::Migration
   def change
     create_table :teachers do |t|
       t.string :first_name
@@ -24,19 +18,16 @@ class CreateTeachers < ActiveRecord::Migration
       t.string :email
       t.string :phone
 
-      t.timestamps
     end
   end
 end
 
-class CreateStudentsTeachers < ActiveRecord::Migration
+class CreateJoinTableClasses < ActiveRecord::Migration
   def change
-    create_table :students_teachers do |t|
-      t.integer :student_id
-      t.integer :teacher_id
-
-      t.timestamps
-    end
+    create_join_table :students, :teachers, table_name: :classes
   end
 end
 
+                                         # do |t|
+      # t.index [:student_id, :teacher_id]
+      # t.index [:teacher_id, :student_id]
